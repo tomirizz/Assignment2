@@ -7,7 +7,7 @@ public class Postgres {
 
     public static void main(String[] args) {
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            System.out.println("✅ Connected to PostgreSQL!");
+            System.out.println("Connected to PostgreSQL!");
 
             insertMenuItem(conn, "Cheese Pizza", 11.99, true);
             readMenuItems(conn);
@@ -27,7 +27,7 @@ public class Postgres {
             stmt.setDouble(2, price);
             stmt.setBoolean(3, isVegetarian);
             stmt.executeUpdate();
-            System.out.println("✔ Inserted: " + name);
+            System.out.println("Inserted: " + name);
         }
     }
 
@@ -36,7 +36,7 @@ public class Postgres {
         String sql = "SELECT * FROM menuitem";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            System.out.println("\n📜 Menu Items:");
+            System.out.println("Menu Items:");
             while (rs.next()) {
                 System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | $" + rs.getDouble("price") + " | Vegetarian: " + rs.getBoolean("is_vegetarian"));
             }
@@ -50,7 +50,7 @@ public class Postgres {
             stmt.setDouble(1, newPrice);
             stmt.setString(2, name);
             int rowsUpdated = stmt.executeUpdate();
-            System.out.println("✔ Updated " + rowsUpdated + " row(s)");
+            System.out.println("Updated " + rowsUpdated + " row(s)");
         }
     }
 
@@ -60,7 +60,7 @@ public class Postgres {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
             int rowsDeleted = stmt.executeUpdate();
-            System.out.println("✔ Deleted " + rowsDeleted + " row(s)");
+            System.out.println("Deleted " + rowsDeleted + " row(s)");
         }
     }
 }
